@@ -1,18 +1,18 @@
-const express = require("express");
-const path = require("path");
-const favicon = require("serve-favicon");
-const logger = require("morgan");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const exphbs = require("express-handlebars");
-const expstate = require("express-state");
-
-const app = express();
+import express from "express";
+import path from "path";
+import favicon from "serve-favicon";
+import logger from "morgan";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import exphbs from "express-handlebars";
+import expstate from "express-state";
 
 // React Components
-const React = require("react");
-const RDS = require("react-dom/server");
+import React from "react";
+import RDS from "react-dom/server";
 import HomePage from "./public/javascripts/pages/home";
+
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -43,6 +43,7 @@ app.get("/", (req, res) => {
     res.expose(initialState, "App.initialState");
 
     res.render("home", {
+        title: "Server Rendered React",
         appString: appString,
         initialState: initialState
     });
@@ -69,14 +70,5 @@ if (app.get("env") === "development") {
     });
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render("error", {
-        message: err.message,
-        error: {}
-    });
-});
 
 module.exports = app;

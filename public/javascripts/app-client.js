@@ -5,7 +5,7 @@ import HomePage from "./pages/home";
 
 window.onload = () => {
     ReactDOM.render(
-        <HomePage {...App.initialState} />,
+        <HomePage count={10}/>,
         document.getElementById("main")
     );
 };

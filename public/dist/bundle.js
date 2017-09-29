@@ -778,7 +778,7 @@ var _home2 = _interopRequireDefault(_home);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 window.onload = function () {
-    _reactDom2.default.render(_react2.default.createElement(_home2.default, App.initialState), document.getElementById("main"));
+    _reactDom2.default.render(_react2.default.createElement(_home2.default, { count: 10 }), document.getElementById("main"));
 }; // src/app-client.js
 
 /***/ }),
