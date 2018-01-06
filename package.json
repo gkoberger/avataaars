@@ -9,7 +9,7 @@
     "buildWithWatch": "./node_modules/webpack/bin/webpack.js --watch"
   },
   "dependencies": {
-    "avataaars": "^1.0.2",
+    "avataaars": "^1.0.4",
     "babel-register": "latest",
     "debug": "latest",
     "express": "latest",
