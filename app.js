@@ -11,6 +11,7 @@ import expstate from "express-state";
 import React from "react";
 import RDS from "react-dom/server";
 import HomePage from "./public/javascripts/pages/home";
+import Avataaars from "./avataaars";
 
 const app = express();
 
@@ -32,21 +33,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-    const initialState = {
-        count: 10,
-        isLoaded: false
-    };
+    const initialState = req.query;
 
-    const appString = RDS.renderToString(<HomePage {...initialState} />);
+    const appString = RDS.renderToString(<Avataaars
+          {...initialState}
+        />
+    );
 
-    //express-state
-    res.expose(initialState, "App.initialState");
-
-    res.render("home", {
-        title: "Server Rendered React",
-        appString: appString,
-        initialState: initialState
+    res.writeHead(200, {
+      "Content-Type": "image/svg+xml"
     });
+    res.end(appString);
 });
 
 // catch 404 and forward to error handler
@@ -69,6 +66,5 @@ if (app.get("env") === "development") {
         });
     });
 }
-
 
 module.exports = app;
