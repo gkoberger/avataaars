@@ -17,6 +17,7 @@
     "express": "~4.9.0",
     "express-handlebars": "^3.0.0",
     "express-state": "^1.4.0",
+    "forever": "^0.15.3",
     "morgan": "~1.3.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
