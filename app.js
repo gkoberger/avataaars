@@ -3,7 +3,7 @@ import express from 'express';
 // React Components
 import React from 'react';
 import RDS from 'react-dom/server';
-import Avataaars from './avataaars';
+import Avataaars from 'avataaars';
 
 const app = express();
 
