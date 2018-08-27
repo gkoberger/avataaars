@@ -1,0 +1,5 @@
+services:
+  web:
+    domain: avataaars.staging.ctbl.es, avataaars.prod.ctbl.es
+    health: /
+    port: 3006
