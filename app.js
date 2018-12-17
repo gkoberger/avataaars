@@ -1,4 +1,5 @@
 import express from 'express';
+const { convert } = require('convert-svg-to-png');
 
 // React Components
 import React from 'react';
@@ -7,13 +8,22 @@ import Avataaars from 'avataaars';
 
 const app = express();
 
-app.get('/', (req, res) => {
+app.get('/', async(req, res) => {
   const appString = RDS.renderToString(<Avataaars {...req.query} />);
 
   res.writeHead(200, {
     'Content-Type': 'image/svg+xml',
   });
   res.end(appString);
+});
+
+app.get('/png', async(req, res) => {
+  const appString = RDS.renderToString(<Avataaars {...req.query} />);
+
+  const png = await convert(appString);
+
+  res.set('Content-Type', 'image/png');
+  res.end(png);
 });
 
 // catch 404 and forward to error handler
