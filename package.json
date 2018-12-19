@@ -4,7 +4,7 @@
   "author": "Tilo Mitra <tilomitra@gmail.com>",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www --exec babel-node --presets es2015,stage-2,react",
+    "start": "./node_modules/.bin/nodemon ./bin/www --exec babel-node --presets es2015,stage-2,react",
     "build": "./node_modules/webpack/bin/webpack.js",
     "buildWithWatch": "./node_modules/webpack/bin/webpack.js --watch"
   },
@@ -21,6 +21,7 @@
     "express": "latest",
     "forever": "latest",
     "morgan": "latest",
+    "nodemon": "^1.18.9",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "webpack": "^3.6.0"
