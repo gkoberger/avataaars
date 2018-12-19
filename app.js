@@ -21,6 +21,7 @@ app.get('/png', async(req, res) => {
   const appString = RDS.renderToString(<Avataaars {...req.query} />);
 
   const png = await convert(appString, {
+    width: parseInt(req.query.width || 500, 10),
     puppeteer: {
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     }
