@@ -20,7 +20,11 @@ app.get('/', async(req, res) => {
 app.get('/png', async(req, res) => {
   const appString = RDS.renderToString(<Avataaars {...req.query} />);
 
-  const png = await convert(appString);
+  const png = await convert(appString, {
+    puppeteer: {
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    }
+  });
 
   res.set('Content-Type', 'image/png');
   res.end(png);
