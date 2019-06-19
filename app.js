@@ -16,6 +16,16 @@ app.get('/', (req, res) => {
   res.end(appString);
 });
 
+app.get('/png', async (req, res) => {
+  const data = RDS.renderToString(<Avataaars {...req.query} />);
+  const { convert } = require('convert-svg-to-png');
+
+  const png = await convert(data);
+
+  res.set('Content-Type', 'image/png');
+  res.send(png);
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   let err = new Error('Not Found');
