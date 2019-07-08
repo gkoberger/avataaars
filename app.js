@@ -20,7 +20,7 @@ app.get('/png', async (req, res) => {
   const data = RDS.renderToString(<Avataaars {...req.query} />);
   const { convert } = require('convert-svg-to-png');
 
-  const png = await convert(data, {puppeteer: { "args": ["--no-sandbox"] }});
+  const png = await convert(data, {puppeteer: { 'args': ['--no-sandbox'] }});
 
   res.set('Content-Type', 'image/png');
   res.send(png);
