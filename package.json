@@ -1,12 +1,10 @@
 {
-  "name": "react-server-render-demo",
+  "name": "avataars",
   "version": "1.0.0",
-  "author": "Tilo Mitra <tilomitra@gmail.com>",
+  "author": "Gregory Koberger",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/nodemon ./bin/www --exec babel-node --presets es2015,stage-2,react",
-    "build": "./node_modules/webpack/bin/webpack.js",
-    "buildWithWatch": "./node_modules/webpack/bin/webpack.js --watch"
+    "start": "./node_modules/.bin/nodemon ./bin/www --exec npx babel-node --presets es2015,stage-2,react"
   },
   "dependencies": {
     "avataaars": "^1.1.0",
