@@ -15,19 +15,16 @@ try {
 module.exports = {
   getObject: (fileName, cb) => {
     if (!s3) {
-    console.log("NO S3", {
-      accessKeyId: process.env.AWS_ACCESS_ID,
-      secretAccessKey: process.env.AWS_SECRET,
-    });
       return cb(false, false);
     }
+
     s3.getObject({
       Bucket: "avataaars.io",
       Key: fileName,
     }, cb)
   },
-  uploadFile: (fileName, fileContent) => {
-    if (!s3) return;
+  uploadFile: (fileName, fileContent, cb) => {
+    if (!s3) return cb();
 
     const params = {
       Bucket: 'avataaars.io',
@@ -41,6 +38,7 @@ module.exports = {
       if (err) {
         throw err;
       }
+      cb();
       //console.log(`File uploaded successfully. ${data.Location}`);
     });
   },

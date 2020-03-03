@@ -48,8 +48,9 @@ app.get('/png/:width?', async (req, res) => {
     });
 
     console.log('Generating new avatar');
-    aws.uploadFile(fileName, png);
-    res.end(png);
+    aws.uploadFile(fileName, png, () => {
+      res.end(png);
+    });
   });
 
 });
