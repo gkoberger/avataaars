@@ -1,6 +1,10 @@
 import express from 'express';
 const { convert } = require('convert-svg-to-png');
 
+const aws = require('./utils/aws');
+
+var crypto = require('crypto');
+
 // React Components
 import React from 'react';
 import RDS from 'react-dom/server';
@@ -8,7 +12,7 @@ import Avataaars from 'avataaars';
 
 const app = express();
 
-app.get('/', async(req, res) => {
+app.get('/', async (req, res) => {
   const appString = RDS.renderToString(<Avataaars {...req.query} />);
 
   res.writeHead(200, {
@@ -17,18 +21,37 @@ app.get('/', async(req, res) => {
   res.end(appString);
 });
 
-app.get('/png/:width?', async(req, res) => {
+const getHash = (req) => {
+  return crypto.createHash('md5').update(req.path + "-" + JSON.stringify(req.query)).digest('hex');
+};
+
+app.get('/png/:width?', async (req, res) => {
+  const hash = getHash(req);
+
   const appString = RDS.renderToString(<Avataaars {...req.query} />);
 
-  const png = await convert(appString, {
-    width: parseInt(req.params.width || 500, 10),
-    puppeteer: {
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    }
-  });
+  const fileName = `${getHash(req)}.png`;
 
   res.set('Content-Type', 'image/png');
-  res.end(png);
+
+  aws.getObject(fileName, async (err, data) => {
+    if (data) {
+      console.log('Existing avatar found');
+      return res.end(data.Body);
+    }
+
+    const png = await convert(appString, {
+      width: parseInt(req.params.width || 500, 10),
+      puppeteer: {
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      },
+    });
+
+    console.log('Generating new avatar');
+    aws.uploadFile(fileName, png);
+    res.end(png);
+  });
+
 });
 
 // catch 404 and forward to error handler

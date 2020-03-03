@@ -1,0 +1,4 @@
+module.exports = {
+    "access_id": "",
+    "secret": "",
+};
