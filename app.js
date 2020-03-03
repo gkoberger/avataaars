@@ -27,9 +27,6 @@ const getHash = (req) => {
 
 app.get('/png/:width?', async (req, res) => {
   const hash = getHash(req);
-
-  const appString = RDS.renderToString(<Avataaars {...req.query} />);
-
   const fileName = `${getHash(req)}.png`;
 
   res.set('Content-Type', 'image/png');
@@ -39,6 +36,8 @@ app.get('/png/:width?', async (req, res) => {
       console.log('Existing avatar found');
       return res.end(data.Body);
     }
+
+    const appString = RDS.renderToString(<Avataaars {...req.query} />);
 
     const png = await convert(appString, {
       width: parseInt(req.params.width || 500, 10),
