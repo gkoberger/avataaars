@@ -3,10 +3,10 @@ const AWS = require('aws-sdk');
 let s3 = false;
 
 try {
-  const credentials = require('../credentials.js');
+  //const credentials = require('../credentials.js');
   s3 = new AWS.S3({
-    accessKeyId: credentials.access_id,
-    secretAccessKey: credentials.secret,
+    accessKeyId: process.env.AWS_ACCESS_ID,
+    secretAccessKey: process.env.AWS_SECRET,
   });
 } catch(e) {
   console.log("Couldn't load credentials");
@@ -15,6 +15,10 @@ try {
 module.exports = {
   getObject: (fileName, cb) => {
     if (!s3) {
+    console.log("NO S3", {
+      accessKeyId: process.env.AWS_ACCESS_ID,
+      secretAccessKey: process.env.AWS_SECRET,
+    });
       return cb(false, false);
     }
     s3.getObject({
