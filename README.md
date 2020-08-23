@@ -30,3 +30,8 @@ DEVELOPMENT
 ```
 
 Most of the good stuff is in `app.js`!
+
+OTHER
+=====
+
+I removed the Puppeteer buildpack, but if we want it back, add https://buildpack-registry.s3.amazonaws.com/buildpacks/jontewks/puppeteer.tgz to Heroku
