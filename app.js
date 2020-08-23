@@ -1,5 +1,4 @@
 import express from 'express';
-//const { convert } = require('convert-svg-to-png');
 
 const svg2img = require('svg2img');
 const aws = require('./utils/aws');
@@ -27,7 +26,12 @@ const getHash = (req) => {
 };
 
 app.get('/png/:width?', async (req, res) => {
-  return res.send('PNG is turned off');
+  if (process.env.DISABLE_PNG) {
+    return res.send('PNG is turned off due to abuse, but you can use SVGs still! https://github.com/gkoberger/avataaars/issues/16');
+  }
+
+  // You'll have to add this back to the package.json
+  const { convert } = require('convert-svg-to-png');
 
   const hash = getHash(req);
   const fileName = `${getHash(req)}.png`;
@@ -42,18 +46,6 @@ app.get('/png/:width?', async (req, res) => {
 
     const appString = RDS.renderToString(<Avataaars {...req.query} />);
 
-    svg2img(appString, {
-      //width: parseInt(req.params.width || 500, 10),
-    }, function(error, buffer) {
-      if (buffer) {
-        console.log(4);
-        console.log(5,error);
-        //res.set('Content-Type', 'image/png');
-        res.send(buffer);
-      }
-    });
-
-    /*
     const png = await convert(appString, {
       width: parseInt(req.params.width || 500, 10),
       puppeteer: {
@@ -65,7 +57,6 @@ app.get('/png/:width?', async (req, res) => {
     aws.uploadFile(fileName, png, () => {
       res.end(png);
     });
-    */
   });
 });
 
