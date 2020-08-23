@@ -1,5 +1,5 @@
 import express from 'express';
-const { convert } = require('convert-svg-to-png');
+//const { convert } = require('convert-svg-to-png');
 
 const svg2img = require('svg2img');
 const aws = require('./utils/aws');
