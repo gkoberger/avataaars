@@ -15,7 +15,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "latest",
-    "debug": "latest",
+    "debug": "4.1.1",
     "express": "latest",
     "forever": "latest",
     "morgan": "latest",
