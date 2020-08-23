@@ -1,6 +1,7 @@
 import express from 'express';
 const { convert } = require('convert-svg-to-png');
 
+const svg2img = require('svg2img');
 const aws = require('./utils/aws');
 
 var crypto = require('crypto');
@@ -26,6 +27,8 @@ const getHash = (req) => {
 };
 
 app.get('/png/:width?', async (req, res) => {
+  return res.send('PNG is turned off');
+
   const hash = getHash(req);
   const fileName = `${getHash(req)}.png`;
 
@@ -39,6 +42,18 @@ app.get('/png/:width?', async (req, res) => {
 
     const appString = RDS.renderToString(<Avataaars {...req.query} />);
 
+    svg2img(appString, {
+      //width: parseInt(req.params.width || 500, 10),
+    }, function(error, buffer) {
+      if (buffer) {
+        console.log(4);
+        console.log(5,error);
+        //res.set('Content-Type', 'image/png');
+        res.send(buffer);
+      }
+    });
+
+    /*
     const png = await convert(appString, {
       width: parseInt(req.params.width || 500, 10),
       puppeteer: {
@@ -50,8 +65,8 @@ app.get('/png/:width?', async (req, res) => {
     aws.uploadFile(fileName, png, () => {
       res.end(png);
     });
+    */
   });
-
 });
 
 // catch 404 and forward to error handler
