@@ -7,7 +7,7 @@
     "start": "./node_modules/.bin/nodemon ./bin/www --exec npx babel-node --presets es2015,stage-2,react"
   },
   "dependencies": {
-    "avataaars": "^1.1.0",
+    "avataaars": "^1.2.1",
     "aws-sdk": "^2.631.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
