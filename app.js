@@ -13,6 +13,9 @@ import Avataaars from 'avataaars';
 const app = express();
 
 app.get('/', async (req, res) => {
+  if (req.query.facialHairType === 'BeardMagestic') {
+    req.query.facialHairType = 'BeardMajestic';
+  }
   const appString = RDS.renderToString(<Avataaars {...req.query} />);
 
   res.writeHead(200, {
