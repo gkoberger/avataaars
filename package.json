@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js"
   },
-  "author": "soulteary",
+  "author": [ "Gregory Koberger", "soulteary" ],
   "license": "MIT",
   "dependencies": {
     "@bugfix/avataaars": "^2021.801.813",
